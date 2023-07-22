@@ -22,7 +22,7 @@ def es_search_keywords_and_vectors(input_words, input_vector, k):
                 "query": {
                     "multi_match": {
                         "query": input_words,
-                        "fields": ["movieName", "overview", "directorName", "producerNames", "castNames", "keyWords", "genres"],
+                        "fields": ["movieName", "overview", "directorName", "producerNames", "releaseDate", "castNames", "keyWords", "genres"],
                         "fuzziness": "1"
                     }
                 },
@@ -41,9 +41,10 @@ def es_search_keywords_and_vectors(input_words, input_vector, k):
     if results_all['hits']['total']['value'] > 0:
         for hit in results_all['hits']['hits']:
             movie_id = hit['_source']['movieId']
+            movie_name = hit['_source']['movieName']
             similarity = hit['_score']
             results_movieId.append(movie_id)
-            print(f"Movie ID: {movie_id} - Similarity: {similarity}")
+            print(f"Movie ID: {movie_id} - Movie Name: {movie_name} - Similarity: {similarity}")
     else:
         print("No movies found matching the input keywords.")
     return results_movieId

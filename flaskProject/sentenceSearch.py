@@ -10,7 +10,7 @@ from app import es
 max_length = 40 # bert 句子向量的最大值
 input_length = 23 # torch.Size([43486, 23, 768]) 这个要跟中间的23长度对应（第四个代码框），因为description里面长度影响结果
 n_components = 900 #PCA降维后的维度
-movie_num = 43486 # movie number
+movie_num = 43449 # movie number
 index_name = "movie_es_data"
 # input_sentence means the description user input
 # host is:'http://localhost:9200'
@@ -91,9 +91,10 @@ def es_search_bert(query_vector, k):
     if results_all['hits']['total']['value'] > 0:
         for hit in results_all['hits']['hits']:
             movie_id = hit['_source']['movieId']
+            movie_name = hit['_source']['movieName']
             similarity = hit['_score']
             results_movieId.append(movie_id)
-            print(f"Movie ID: {movie_id} - Similarity: {similarity}")
+            print(f"Movie ID: {movie_id} - Movie Name: {movie_name} - Similarity: {similarity}")
     else:
         print("No movies found matching the input keywords.")
     return results_movieId
