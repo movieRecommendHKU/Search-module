@@ -26,6 +26,7 @@ es = Elasticsearch(hosts='http://localhost:9200')
 
 from keywordSearch import es_search_none, get_words_vector, es_search_keywords_and_vectors
 from sentenceSearch import remove_punctuation, get_normalized_data, es_search_bert
+from userSearch import es_search_userSimilarity
 @app.route('/SearchByKeywords', methods=['POST'])
 def search_by_keywords():
     json_data = request.get_json()
@@ -44,20 +45,27 @@ def search_by_keywords():
 @app.route('/SearchBySentences', methods=['POST'])
 def search_by_sentences():
     json_data = request.get_json()
-    string_sentence = json_data["string_sentence"]
+    string_sentences = json_data["string_sentences"]
     k = json_data["k"]
-    input_sentence = re.split(r' |,|\.', string_sentence)
-    input_sentence = list(filter(None, input_sentence))
-    print(input_sentence)
-    sentences_min_words = len(input_sentence)
+    input_sentences = re.split(r' |,|\.', string_sentences)
+    input_sentences = list(filter(None, input_sentences))
+    print(input_sentences)
+    sentences_min_words = len(input_sentences)
     if sentences_min_words < 10:
         search_movieId = es_search_none()
     else:
-        input_sentence = remove_punctuation(string_sentence)
-        normalized_data_list = get_normalized_data(input_sentence)
+        input_sentences = remove_punctuation(string_sentences)
+        normalized_data_list = get_normalized_data(input_sentences)
         search_movieId = es_search_bert(normalized_data_list, k)
     return search_movieId
 
+@app.route('/SearchByUserSimilarity', methods=['POST'])
+def search_by_user_similarity():
+    json_data = request.get_json()
+    similarity = json_data["similarity"]
+    k = json_data["k"]
+    search_userId = es_search_userSimilarity(similarity, k)
+    return search_userId
 
 if __name__ == '__main__':
     app.run()
