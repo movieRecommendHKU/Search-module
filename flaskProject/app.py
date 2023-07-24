@@ -30,7 +30,7 @@ from userSearch import es_search_userSimilarity
 @app.route('/SearchByKeywords', methods=['POST'])
 def search_by_keywords():
     json_data = request.get_json()
-    string_keywords = json_data["string_keywords"]
+    string_keywords = json_data["string_keywords"].lower()
     k = json_data["k"]
     string_keywords = remove_punctuation(string_keywords)
     input_keywords = string_keywords.split()
@@ -45,7 +45,7 @@ def search_by_keywords():
 @app.route('/SearchBySentences', methods=['POST'])
 def search_by_sentences():
     json_data = request.get_json()
-    string_sentences = json_data["string_sentences"]
+    string_sentences = json_data["string_sentences"].lower()
     k = json_data["k"]
     input_sentences = re.split(r' |,|\.', string_sentences)
     input_sentences = list(filter(None, input_sentences))

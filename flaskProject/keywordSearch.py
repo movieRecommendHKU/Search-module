@@ -22,8 +22,7 @@ def es_search_keywords_and_vectors(input_words, input_vector, k):
                 "query": {
                     "multi_match": {
                         "query": input_words,
-                        "fields": ["movieName", "overview", "directorName", "producerNames", "releaseDate", "castNames", "keyWords", "genres"],
-                        "fuzziness": "1"
+                        "fields": ["movieName^1.5", "overview", "directorName", "producerNames", "releaseDate", "castNames", "genres"],
                     }
                 },
                 "script_score": {
