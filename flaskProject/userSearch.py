@@ -9,7 +9,7 @@ def es_search_userSimilarity(input_vector, k):
             "function_score": {
                 "script_score": {
                     "script": {
-                        "source": "cosineSimilarity(params.query_vector, 'similarity') + 1.0",
+                        "source": "cosineSimilarity(params.query_vector, 'vector') + 1.0",
                         "params": {"query_vector": input_vector}
                     }
                 }
