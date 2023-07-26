@@ -61,9 +61,9 @@ def search_by_sentences():
 @app.route('/SearchByUserSimilarity', methods=['POST'])
 def search_by_user_similarity():
     json_data = request.get_json()
-    similarity = json_data["similarity"]
+    vector = json_data["vector"]
     k = json_data["k"]
-    search_userId = es_search_userSimilarity(similarity, k)
+    search_userId = es_search_userSimilarity(vector, k)
     return search_userId
 
 if __name__ == '__main__':
