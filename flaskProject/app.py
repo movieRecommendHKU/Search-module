@@ -63,8 +63,8 @@ def search_by_user_similarity():
     json_data = request.get_json()
     vector = json_data["vector"]
     k = json_data["k"]
-    search_userId = es_search_userSimilarity(vector, k)
-    return search_userId
+    search_result = es_search_userSimilarity(vector, k)
+    return search_result
 
 if __name__ == '__main__':
     app.run()

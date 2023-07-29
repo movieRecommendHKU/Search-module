@@ -18,13 +18,13 @@ def es_search_userSimilarity(input_vector, k):
         "size": k
     }
     results_all = es.search(index=index_name, body=query)
-    results_userId = []
+    results = []
     if results_all['hits']['total']['value'] > 0:
         for hit in results_all['hits']['hits']:
             user_id = hit['_source']['userId']
             similarity = hit['_score']
-            results_userId.append(user_id)
+            results.append({"user_id": user_id, "similarity": similarity})
             print(f"User ID: {user_id} - Similarity: {similarity}")
     else:
         print("No user found matching the input keywords.")
-    return results_userId
+    return results
