@@ -21,7 +21,7 @@ max_val = np.load('./ModelFiles/max_val.npy')
 
 w2v = Word2Vec.load("./ModelFiles/word2vec.model")
 
-es = Elasticsearch(hosts='http://39.107.230.31:9200')
+es = Elasticsearch(hosts='http://localhost:9200')
 
 from keywordSearch import es_search_none, get_words_vector, es_search_keywords_and_vectors
 from sentenceSearch import remove_punctuation, get_normalized_data, es_search_bert
@@ -61,6 +61,7 @@ def search_by_sentences():
 @app.route('/SearchByUserSimilarity', methods=['POST'])
 def search_by_user_similarity():
     json_data = request.get_json()
+    print(json_data)
     vector = json_data["vector"]
     k = json_data["k"]
     search_result = es_search_userSimilarity(vector, k)
