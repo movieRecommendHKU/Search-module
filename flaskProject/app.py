@@ -50,7 +50,7 @@ def search_by_sentences():
     input_sentences = list(filter(None, input_sentences))
     print(input_sentences)
     sentences_min_words = len(input_sentences)
-    if sentences_min_words < 10:
+    if sentences_min_words < 15:
         search_movieId = es_search_none()
     else:
         input_sentences = remove_punctuation(string_sentences)
