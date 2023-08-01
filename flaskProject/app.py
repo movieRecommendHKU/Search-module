@@ -21,7 +21,7 @@ max_val = np.load('./ModelFiles/max_val.npy')
 
 w2v = Word2Vec.load("./ModelFiles/word2vec.model")
 
-es = Elasticsearch(hosts='http://39.107.230.31:9200')
+es = Elasticsearch(hosts='http://172.21.220.232:9200')
 
 from keywordSearch import es_search_none, get_words_vector, es_search_keywords_and_vectors
 from sentenceSearch import remove_punctuation, get_normalized_data, es_search_bert
